@@ -34,11 +34,10 @@ stages:
           command: |
             echo "$ORACLE_HOME"
             set -evxu
-            "$ORACLE_HOME/bin/sqlplus" -L -S / AS SYSDBA <<SQL
+            "$ORACLE_HOME/bin/sqlplus" -L -S sys/oracle AS SYSDBA <<SQL
             @@cisetup/create_ruby_user.sql
             SQL
             exit
         - type: shell
           environment:
-            PATH: $PATH:$ORACLE_HOME/jdbc/lib
-          command: make check
+          command: PATH=$PATH:$ORACLE_HOME/jdbc/lib make check
