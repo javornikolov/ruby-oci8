@@ -8,7 +8,12 @@ stages:
   - build:
       workDir: ~/ruby-oci8
       environment:
-        DATABASE_VERSION: 11.2.0.1
+        ORACLE_HOME: /u01/app/oracle/product/11.2.0/xe
+        NLS_LANG: AMERICAN_AMERICA.AL32UTF8
+        ORACLE_BASE: /u01/app/oracle
+        LD_LIBRARY_PATH: $ORACLE_HOME/lib
+        PATH: $PATH:$ORACLE_HOME/jdbc/lib
+        DATABASE_VERSION: 11.2.0.2
         ORACLE_SID: XE
         DATABASE_NAME: XE
         ORA_SDTZ: 'Europe/Helsinki'
@@ -29,5 +34,10 @@ stages:
         - type: shell
           command: |
             echo "$ORACLE_HOME"
+            set -evxu
+            "$ORACLE_HOME/bin/sqlplus" -L -S / AS SYSDBA <<SQL
+            @@cisetup/create_ruby_user.sql
+            SQL
+            exit
         - type: shell
           command: make check
