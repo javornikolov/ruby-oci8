@@ -26,3 +26,8 @@ stages:
           command: /bin/bash -l -c "rvm requirements && rvm install 2.4.0"
         - type: shell
           command: /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+        - type: shell
+          "$ORACLE_HOME/bin/sqlplus" -L -S sys/oracle AS SYSDBA <<SQL
+          @@cisetup/create_ruby_user.sql
+          exit
+          SQL
