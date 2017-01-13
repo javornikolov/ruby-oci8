@@ -16,7 +16,13 @@ stages:
       steps:
         - type: shell
           pwd: /
-          command: apt-get update && apt-get install -y git
+          command: apt-get update && apt-get install -y git curl
         - type: checkout
         - type: shell
           command: id -a
+        - type: shell
+          command: /usr/bin/curl -L https://get.rvm.io | /bin/bash -s stable
+        - type: shell
+          command: /bin/bash -l -c "rvm requirements && rvm install 2.4.0"
+        - type: shell
+          command: /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
