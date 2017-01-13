@@ -23,13 +23,14 @@ stages:
           command: apt-get update && apt-get install -y git curl make
         - type: checkout
         - type: shell
-          command: id -a
-        - type: shell
           command: /usr/bin/curl -L https://get.rvm.io | /bin/bash -s stable
         - type: shell
-          command: /bin/bash -l -c "rvm requirements && rvm install 2.4.0"
-        - type: shell
-          command: /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
+          shell: /bin/bash --login
+          command: |
+            /usr/bin/curl -L https://get.rvm.io | /bin/bash -s stable &&
+            rvm requirements &&
+            rvm install 2.4.0 &&
+            gem install bundler --no-ri --no-rdoc
         - type: shell
           command: |
             echo "$ORACLE_HOME"
@@ -39,5 +40,4 @@ stages:
             SQL
             exit
         - type: shell
-          environment:
           command: /bin/bash -l -c "make check"
