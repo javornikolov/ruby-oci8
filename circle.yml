@@ -16,7 +16,7 @@ stages:
       steps:
         - type: shell
           pwd: /
-          command: apt-get update && apt-get install -y git curl
+          command: apt-get update && apt-get install -y git curl make
         - type: checkout
         - type: shell
           command: id -a
@@ -31,3 +31,5 @@ stages:
           @@cisetup/create_ruby_user.sql
           exit
           SQL
+        - type: shell
+          make check
