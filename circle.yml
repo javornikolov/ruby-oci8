@@ -40,4 +40,4 @@ stages:
             exit
         - type: shell
           environment:
-          command: /bin/bash -l -c "PATH=$PATH:$ORACLE_HOME/jdbc/lib make check"
+          command: /bin/bash -l -c "make check"
