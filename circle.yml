@@ -12,7 +12,6 @@ stages:
         NLS_LANG: AMERICAN_AMERICA.AL32UTF8
         ORACLE_BASE: /u01/app/oracle
         LD_LIBRARY_PATH: $ORACLE_HOME/lib
-        PATH: $PATH:$ORACLE_HOME/jdbc/lib
         DATABASE_VERSION: 11.2.0.2
         ORACLE_SID: XE
         DATABASE_NAME: XE
@@ -40,4 +39,6 @@ stages:
             SQL
             exit
         - type: shell
+          environment:
+            PATH: $PATH:$ORACLE_HOME/jdbc/lib
           command: make check
