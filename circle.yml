@@ -28,9 +28,6 @@ stages:
           command: /bin/bash -l -c "gem install bundler --no-ri --no-rdoc"
         - type: shell
           command: |
-          "$ORACLE_HOME/bin/sqlplus" -L -S sys/oracle AS SYSDBA <<SQL
-          @@cisetup/create_ruby_user.sql
-          exit
-          SQL
+            echo "$ORACLE_HOME"
         - type: shell
           command: make check
